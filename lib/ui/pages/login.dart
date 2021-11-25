@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'base_navegacion.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.title}) : super(key: key);
@@ -72,7 +73,10 @@ class _LoginPageState extends State<LoginPage> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/content');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BaseNavegacion())
+              );
             },
             tooltip: 'Login Max Anime',
             child: const Icon(Icons.login),
