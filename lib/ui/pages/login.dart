@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'base_navegacion.dart';
+import 'package:get/get.dart';
+import 'package:max_anime/ui/pages/principal.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -13,76 +12,73 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Red Max Anime",
-      theme: ThemeData(primarySwatch: Colors.lightGreen),
-      home: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/imags/fondo.jpg'), fit: BoxFit.cover),
+    return
+      Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text('Login Max Anime'),
         ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            title: Text('Login Max Anime'),
-          ),
-          body: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Primer Input
-                Center(
-                  child: Container(
-                    margin: const EdgeInsets.all(20.0),
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Usuario',
+        body: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/imags/fondo.jpg'), fit: BoxFit.cover)),
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Primer Input
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.all(20.0),
+                      child: TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Usuario',
+                        ),
+                        onChanged: (text) {},
                       ),
-                      onChanged: (text) {},
                     ),
                   ),
-                ),
-                // Segundo Input
-                Center(
-                  child: Container(
-                    margin: const EdgeInsets.all(20.0),
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Contraseña',
+                  // Segundo Input
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.all(20.0),
+                      child: TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Contraseña',
+                        ),
+                        onChanged: (text) {},
                       ),
-                      onChanged: (text) {},
                     ),
                   ),
-                ),
-                // Boton de Registro
-                Center(
-                  child: Container(
-                    margin: const EdgeInsets.all(20.0),
-                    child: MaterialButton(
-                      child: const Text("Registrarse!"),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/register');
-                      },
+                  // Boton de Registro
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.all(20.0),
+                      child: MaterialButton(
+                        child: const Text("Registrarse!"),
+                        onPressed: () {
+                          //Navigator.pushNamed(context, '/register');
+                          Get.toNamed('/register');
+                        },
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BaseNavegacion())
-              );
-            },
-            tooltip: 'Login Max Anime',
-            child: const Icon(Icons.login),
-          ), // This trailing comma makes auto-formatting nicer for build methods.
-        ),
-      ),
-    );
+                ],
+              ),
+            )),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            /*Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => BaseNavegacion())
+            );*/
+            Get.offNamed('/principal');
+          },
+          tooltip: 'Login Max Anime',
+          child: const Icon(Icons.login),
+        ), // This trailing comma makes auto-formatting nicer for build methods.
+      );
   }
 }

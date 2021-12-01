@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:max_anime/ui/pages/chats.dart';
 import 'package:max_anime/ui/pages/content.dart';
 import 'package:max_anime/ui/pages/login.dart';
+import 'package:max_anime/ui/pages/principal.dart';
 import 'package:max_anime/ui/pages/register.dart';
+import 'package:max_anime/ui/pages/ubicacion.dart';
 import 'theme/theme.dart';
+import 'package:get/get.dart';
+import 'pages/chats.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -10,23 +15,19 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Red Max Anime',
-      theme: ThemeData(brightness: Brightness.dark
-          //primarySwatch: Colors.blueGrey,
-          ),
-      initialRoute: '/',
-      routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => const LoginPage(
-              title: 'Login',
-            ),
-        '/register': (context) => const RegisterPage(
-              title: 'Registro',
-            ),
-        '/content': (context) => const ContentPage(title: 'Posts'),
-      },
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      initialRoute: '/login',
+      getPages: [
+        GetPage(name: '/login', page: () => LoginPage()),
+        GetPage(name: '/register', page: () => RegisterPage()),
+        GetPage(name: '/principal', page: () => Principal(), transition: Transition.zoom),
+        GetPage(name: '/chats', page: () => Chats()),
+        GetPage(name: '/ubicacion', page: () => Ubicacion('Barranquilla'))
+      ],
     );
   }
 }

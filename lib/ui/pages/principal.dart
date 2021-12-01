@@ -47,10 +47,11 @@ class _Principal extends State<Principal>{
   Widget build(BuildContext context) {
 
     void paginaMensajes(){
-      Navigator.push(
+      /*Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Chats())
-      );
+      );*/
+      Get.toNamed('/chats');
     }
 
     void abrirDrawer(){

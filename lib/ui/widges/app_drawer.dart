@@ -28,10 +28,11 @@ class _AppDrawer extends State<AppDrawer>{
   Widget build(BuildContext context) {
 
     void abrirUbicacion(){
-      Navigator.push(
+      /*Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Ubicacion('Barranquilla'))
-      );
+      );*/
+      Get.toNamed('/ubicacion');
     }
     
     void cambiarUbicacion(){
