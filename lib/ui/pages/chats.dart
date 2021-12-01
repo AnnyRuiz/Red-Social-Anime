@@ -1,8 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'chats_list.dart';
+import 'package:get/get.dart';
 
-class Chats extends StatelessWidget{
+class Chats extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _Chats();
+  }
+
+}
+
+class _Chats extends State<Chats>{
 
   void funcion(){
 
@@ -11,8 +21,13 @@ class Chats extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return MaterialApp(
-      home: DefaultTabController(
+    return //MaterialApp(
+      //theme: ThemeData.light(),
+      //darkTheme: ThemeData.dark(),
+      //home:
+
+      Scaffold(
+      body: DefaultTabController(
         length: 2,
         child: Scaffold(
           appBar: AppBar(
