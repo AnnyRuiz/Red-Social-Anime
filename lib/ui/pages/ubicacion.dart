@@ -74,7 +74,7 @@ class Ubicacion extends StatelessWidget{
                           fontSize: 22
                       ),
                     ),
-                    SwitchButton(true)
+                    SwitchButton(switchValue: false, funcion: (){})
                   ],
                 )
             ),

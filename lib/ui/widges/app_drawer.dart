@@ -2,28 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../pages/ubicacion.dart';
 import '../widges/switch_button.dart';
+import 'package:get/get.dart';
 
 class AppDrawer extends StatefulWidget{
 
-  bool switchOscuro = false;
   bool switchUbicacion = false;
 
-  AppDrawer(this.switchOscuro, this.switchUbicacion);
+  AppDrawer(this.switchUbicacion);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _AppDrawer(switchOscuro,switchUbicacion);
+    return _AppDrawer(switchUbicacion);
   }
 
 }
 
 class _AppDrawer extends State<AppDrawer>{
 
-  bool _switchOscuro = false;
   bool _switchUbicacion = false;
 
-  _AppDrawer(this._switchOscuro, this._switchUbicacion);
+  _AppDrawer(this._switchUbicacion);
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +33,11 @@ class _AppDrawer extends State<AppDrawer>{
           MaterialPageRoute(builder: (context) => Ubicacion('Barranquilla'))
       );
     }
+    
+    void cambiarUbicacion(){
+      
+    }
+    
     // TODO: implement build
     return Drawer(
       child: ListView(
@@ -67,26 +71,15 @@ class _AppDrawer extends State<AppDrawer>{
               children: [
                 Expanded(
                     child: Text(
-                      'Modo oscuro',
-                      style: TextStyle(
-                          fontSize: 15
-                      ),
-                    )),
-                SwitchButton(_switchOscuro)
-              ],
-            ),
-          ),
-          ListTile(
-            title: Row(
-              children: [
-                Expanded(
-                    child: Text(
                       'Ubicación',
                       style: TextStyle(
                           fontSize: 15
                       ),
                     )),
-                SwitchButton(_switchUbicacion)
+                SwitchButton(
+                    switchValue: _switchUbicacion, 
+                    funcion: cambiarUbicacion
+                )
               ],
             ),
           )

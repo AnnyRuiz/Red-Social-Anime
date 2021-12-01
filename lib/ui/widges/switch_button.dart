@@ -4,34 +4,33 @@ import 'package:flutter/material.dart';
 class SwitchButton extends StatefulWidget{
 
   bool switchValue = false;
+  final VoidCallback funcion;
 
-  SwitchButton(this.switchValue);
+  SwitchButton({Key? key, required this.switchValue, required this.funcion});
+
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _SwitchButton(switchValue);
+    return _SwitchButton();
   }
 
 }
 
 class _SwitchButton extends State<SwitchButton>{
 
-  bool _switchValue = false;
-
-  _SwitchButton(this._switchValue);
-
   void cambiarSwitch(value){
     setState(() {
-      _switchValue = value;
+      widget.switchValue = value;
     });
+    widget.funcion;
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return CupertinoSwitch(
-        value: _switchValue,
+        value: widget.switchValue,
         onChanged: cambiarSwitch
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:max_anime/ui/pages/content.dart';
 import 'package:max_anime/ui/pages/login.dart';
 import 'package:max_anime/ui/pages/register.dart';
-
+import 'theme/theme.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
