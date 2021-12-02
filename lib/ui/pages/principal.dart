@@ -89,6 +89,10 @@ class _Principal extends State<Principal>{
           onTap: onTapTapped,
           currentIndex: indexTap,
           items: BottomBar().bottom_items(),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){},
+          child: Icon(Icons.add),
         )
     );
   }

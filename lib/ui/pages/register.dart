@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -85,7 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: MaterialButton(
                   child: const Text("Volver!"),
                   onPressed: () {
-                    Navigator.pop(context);
+                    Get.toNamed('/login');
                   },
                 ),
               ),
