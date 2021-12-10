@@ -15,6 +15,7 @@ class _HandlerState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final pswdController = TextEditingController();
+  //dependencia del controlador
   AuthController ctrl = Get.find();
 
   //metodo de creacion
@@ -46,10 +47,57 @@ class _HandlerState extends State<SignupPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 "Informacipn de registro",
                 style: TextStyle(fontSize: 20),
-              )
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              //campo de email
+              TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  controller: emailController,
+                  decoration:
+                      const InputDecoration(labelText: "correo electronico"),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "correo electronico es obligatorio";
+                    } else if (value.contains('@')) {
+                      return "correo electronico debe tener @";
+                    }
+                  }),
+              const SizedBox(
+                height: 20,
+              ),
+              // campo password
+              TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: pswdController,
+                  obscureText: true,
+                  decoration: const InputDecoration(labelText: "password"),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "password es obligatorio";
+                    } else if (value.length > 6) {
+                      return "password debe ser mayor a 6 digitos";
+                    }
+                  }),
+              const SizedBox(
+                height: 20,
+              ),
+              // boton de registo
+              TextButton(
+                  onPressed: () {
+                    final form = _formKey.currentState;
+                    form!.save();
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    //validacion formulario
+                    if (_formKey.currentState!.validate()) {
+                      _signup(emailController.text, pswdController.text);
+                    }
+                  },
+                  child: const Text("registrar"))
             ],
           ),
         ),
