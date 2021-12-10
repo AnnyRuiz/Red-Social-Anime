@@ -1,5 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get.dart';
@@ -16,11 +15,13 @@ void main() {
       logPrinter: const PrettyPrinter(
     showColors: true,
   ));
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SignupPage(),
+      home: FutureBuilder(
+        future: _initialization,
+        builder: (context, snap) {
+          if (snap.hasError) {
+            return Text("Error: ${snap.error}");
+          } else if (snap.connectionState == ConnectionState.done) {
+            return const SignupPage();
+          } else {
+            return const CircularProgressIndicator();
+          }
+        },
+      ),
     );
   }
 }
