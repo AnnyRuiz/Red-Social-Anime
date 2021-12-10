@@ -1,32 +1,60 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:max_anime/ui/pages/content.dart';
-import 'package:max_anime/ui/pages/login.dart';
-import 'package:max_anime/ui/pages/register.dart';
+import 'package:red_maxanime/domain/models/controllers/auth_controller.dart';
+import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
 
+class MyApp extends StatelessWidget {
+  // Se inicializa el contexto de firebase
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
-class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  // Constructor
+  MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Red Max Anime',
-      theme: ThemeData(brightness: Brightness.dark
-          //primarySwatch: Colors.blueGrey,
-          ),
-      initialRoute: '/',
-      routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => const LoginPage(
-              title: 'Login',
-            ),
-        '/register': (context) => const RegisterPage(
-              title: 'Registro',
-            ),
-        '/content': (context) => const ContentPage(title: 'Posts'),
-      },
+      title: 'Red social Max Anime',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Scaffold(
+          body: FutureBuilder(
+        future: _initialization,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            logError("error ${snapshot.error}");
+            return const Wrong();
+          }
+          if (snapshot.connectionState == ConnectionState.done) {
+            //Get.put(FirebaseController());
+            Get.put(AuthenticationController());
+            //Get.put(ChatController());
+            //Get.put(ChatsController());
+            //return const FirebaseCentral();
+          }
+          return const Loading();
+        },
+      )),
     );
+  }
+}
+
+class Wrong extends StatelessWidget {
+  const Wrong({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text("Ocurrio un error!"));
+  }
+}
+
+class Loading extends StatelessWidget {
+  const Loading({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const CircularProgressIndicator();
   }
 }

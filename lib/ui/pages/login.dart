@@ -16,14 +16,14 @@ class _LoginPageState extends State<LoginPage> {
       title: "Red Max Anime",
       theme: ThemeData(primarySwatch: Colors.lightGreen),
       home: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/imags/fondo.jpg'), fit: BoxFit.cover),
+              image: AssetImage('img_main.jpg'), fit: BoxFit.cover),
         ),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: Text('Login Max Anime'),
+            title: const Text('Login Max Anime'),
           ),
           body: Center(
             child: Column(

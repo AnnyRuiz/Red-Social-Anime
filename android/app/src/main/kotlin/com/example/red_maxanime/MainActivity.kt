@@ -1,4 +1,4 @@
-package com.max_anime
+package com.example.red_maxanime
 
 import io.flutter.embedding.android.FlutterActivity
 

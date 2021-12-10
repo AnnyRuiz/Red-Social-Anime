@@ -62,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: TextField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Email',
+                    labelText: 'Correo',
                   ),
                   onChanged: (text) {},
                 ),
