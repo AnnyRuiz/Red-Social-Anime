@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:max_anime/ui/widges/chat_row_ubicacion.dart';
+import '../widges/chat_row_ubicacion.dart';
 import '../widges/chat_row.dart';
 
 class ChatsList extends StatelessWidget{

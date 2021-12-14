@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:max_anime/ui/pages/principal.dart';
+import 'package:max_anime/domain/use_cases/controllers/authentication_controller.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -10,6 +11,28 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final emailCtrl = TextEditingController();
+  final pswdCtrl = TextEditingController();
+  AuthController authController = Get.find();
+
+  String mensaje = '';
+
+  void login() async{
+    bool correctUser = false;
+    await authController.signIn(emailCtrl.text, pswdCtrl.text).then((value) => {
+      correctUser = value
+    });
+    if(correctUser) {
+      Get.offNamed('/principal');
+    }else{
+      print('maxanime: entre a mal');
+      setState(() {
+        mensaje = '${authController.mensaje}';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return
@@ -36,6 +59,8 @@ class _LoginPageState extends State<LoginPage> {
                           labelText: 'Usuario',
                         ),
                         onChanged: (text) {},
+                        controller: emailCtrl,
+                        keyboardType: TextInputType.emailAddress,
                       ),
                     ),
                   ),
@@ -49,6 +74,9 @@ class _LoginPageState extends State<LoginPage> {
                           labelText: 'Contraseña',
                         ),
                         onChanged: (text) {},
+                        controller: pswdCtrl,
+                        keyboardType: TextInputType.visiblePassword,
+                        obscureText: true,
                       ),
                     ),
                   ),
@@ -60,22 +88,30 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Text("Registrarse!"),
                         onPressed: () {
                           //Navigator.pushNamed(context, '/register');
-                          Get.toNamed('/register');
+                          Get.offNamed('/register');
                         },
                       ),
                     ),
                   ),
+                  Center(
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          top: 30,
+                        ),
+                        child: Text(
+                            mensaje,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                      )
+                  )
                 ],
               ),
             )),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            /*Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => BaseNavegacion())
-            );*/
-            Get.offNamed('/principal');
-          },
+          onPressed: login,
           tooltip: 'Login Max Anime',
           child: const Icon(Icons.login),
         ), // This trailing comma makes auto-formatting nicer for build methods.
