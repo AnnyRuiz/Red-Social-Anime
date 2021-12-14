@@ -86,7 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: MaterialButton(
                   child: const Text("Volver!"),
                   onPressed: () {
-                    Get.toNamed('/login');
+                    Get.offNamed('/login');
                   },
                 ),
               ),
