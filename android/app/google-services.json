@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1046630628001",
+    "project_id": "max-anime",
+    "storage_bucket": "max-anime.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1046630628001:android:79d8a4a5ff2ad0d841cee0",
+        "android_client_info": {
+          "package_name": "com.example.max_anime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1046630628001-5a5gjdfd7p3nise6th8ubme9pm5pg6ke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAl_RsLTg1TccCsbKzhMeHhEtjNSn07EIQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1046630628001-5a5gjdfd7p3nise6th8ubme9pm5pg6ke.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
