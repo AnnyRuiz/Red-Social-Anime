@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:max_anime/domain/use_cases/controllers/authentication_controller.dart';
+
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
@@ -10,6 +12,28 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
+  final emailCtrl = TextEditingController();
+  final pswdCtrl = TextEditingController();
+  AuthController authController = Get.find();
+
+  String mensaje = '';
+
+  void signup() async{
+    bool correctUser = false;
+    await authController.signUp(emailCtrl.text, pswdCtrl.text).then((value) => {
+      correctUser = value
+    });
+    if(correctUser) {
+      Get.offNamed('/principal');
+    }else{
+      print('maxanime: entre a mal');
+      setState(() {
+        mensaje = '${authController.mensajeReg}';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     labelText: 'Usuario',
                   ),
                   onChanged: (text) {},
+                  controller: emailCtrl,
                 ),
               ),
             ),
@@ -41,6 +66,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     labelText: 'Nombre',
                   ),
                   onChanged: (text) {},
+                  controller: pswdCtrl,
                 ),
               ),
             ),
@@ -91,13 +117,25 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
+            Center(
+                child: Container(
+                  margin: EdgeInsets.only(
+                    top: 30,
+                  ),
+                  child: Text(
+                    mensaje,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                )
+            )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: signup,
         tooltip: 'Registrar',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

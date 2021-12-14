@@ -4,8 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthController extends GetxController{
 
   var _mensaje = ''.obs;
+  var _mensajeReg = ''.obs;
 
   String get mensaje => _mensaje.value;
+  String get mensajeReg => _mensajeReg.value;
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -13,7 +15,7 @@ class AuthController extends GetxController{
     try {
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
-          password: pass
+        password: pass
       );
       print('maxanime'+'retornando bien');
       print('maxanime' + '${userCredential}');
@@ -30,6 +32,27 @@ class AuthController extends GetxController{
       return false;
     }
 
+  }
+
+  Future<bool> signUp(email,pass) async{
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: pass,
+      );
+      return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        _mensajeReg.value = 'The password provided is too weak.';
+      } else if (e.code == 'email-already-in-use') {
+        _mensajeReg.value = 'The account already exists for that email.';
+      }
+      return false;
+    } catch (e) {
+      print(e);
+      _mensajeReg.value = 'Ocurrio un error intentelo mas tarde';
+      return false;
+    }
   }
 
 
