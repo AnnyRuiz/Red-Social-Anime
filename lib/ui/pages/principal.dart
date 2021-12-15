@@ -6,8 +6,13 @@ import 'feed.dart';
 import 'notifications.dart';
 import 'profile.dart';
 import 'package:get/get.dart';
+import 'package:max_anime/data/local/shared_prefs.dart';
 
 class Principal extends StatefulWidget{
+
+  //bool modoOscuro = false;
+  //Principal({Key? key, required this.modoOscuro});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -19,8 +24,26 @@ class Principal extends StatefulWidget{
 class _Principal extends State<Principal>{
   GlobalKey<ScaffoldState> _key = GlobalKey();
 
-  bool darkMode = false;
   int indexTap = 0;
+  SharedPrefs prefs = SharedPrefs();
+  bool modoOscuro = false;
+
+  void getTema() async{
+    await prefs.getTema().then((value) => {
+      modoOscuro = value
+    });
+    setState(() {
+      Get.changeThemeMode(
+          modoOscuro ? ThemeMode.dark : ThemeMode.light
+      );
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    getTema();
+  }
 
   final List<Widget> widgetsChildren = [
     Feed(),
@@ -36,11 +59,12 @@ class _Principal extends State<Principal>{
 
   void cambiarTema(){
     setState(() {
-      darkMode = !darkMode;
+      modoOscuro = !modoOscuro;
       Get.changeThemeMode(
-          darkMode ? ThemeMode.dark : ThemeMode.light
+          modoOscuro ? ThemeMode.dark : ThemeMode.light
       );
     });
+    prefs.setTema(modoOscuro);
   }
 
   @override
@@ -71,7 +95,7 @@ class _Principal extends State<Principal>{
           actions: [
             IconButton(
                 onPressed: cambiarTema,
-                icon: darkMode ? Icon(Icons.wb_sunny) : Icon(Icons.nights_stay)
+                icon: modoOscuro ? Icon(Icons.wb_sunny) : Icon(Icons.nights_stay)
             ),
             IconButton(onPressed: paginaMensajes, icon: Icon(Icons.message)),
             IconButton(

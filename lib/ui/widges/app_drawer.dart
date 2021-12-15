@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:max_anime/domain/use_cases/controllers/authentication_controller.dart';
 import '../pages/ubicacion.dart';
 import '../widges/switch_button.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,28 @@ class _AppDrawer extends State<AppDrawer>{
   bool _switchUbicacion = false;
 
   _AppDrawer(this._switchUbicacion);
+
+  AuthController authController = Get.find();
+
+  void signOut() async{
+    bool correctUser = false;
+    await authController.signOut().then((value) => {
+      correctUser = value
+    });
+    if(correctUser) {
+      final snackBar = SnackBar(
+        content: const Text('Sesion cerrada correctamente'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      Get.offNamed('/login');
+    }else{
+      final snackBar = SnackBar(
+        content: const Text('Ocurrio un error!'),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,11 +101,23 @@ class _AppDrawer extends State<AppDrawer>{
                       ),
                     )),
                 SwitchButton(
-                    switchValue: _switchUbicacion, 
+                    switchValue: _switchUbicacion,
                     funcion: cambiarUbicacion
                 )
               ],
             ),
+          ),
+          ListTile(
+            onTap: signOut,
+            title: const Text(
+              'Sing Out',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+
           )
         ],
       ),

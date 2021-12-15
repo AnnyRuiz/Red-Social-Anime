@@ -18,18 +18,16 @@ class AuthController extends GetxController{
           email: email,
         password: pass
       );
-      print('maxanime'+'retornando bien');
-      print('maxanime' + '${userCredential}');
+      print('maxanime: credencial de usuario tras login' + '${userCredential}');
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        _mensaje.value = 'Usuario incorrecto para el email dado';
+        _mensaje.value = 'Usuario no encontrado';
       } else if (e.code == 'wrong-password') {
         _mensaje.value = 'Constraseña incorrecta';
       }else{
         _mensaje.value = 'Usuario o contraseña erroneos';
       }
-      print('maxanime'+'retornando mal');
       return false;
     }
 
@@ -62,7 +60,6 @@ class AuthController extends GetxController{
       return true;
     } catch (e) {
       print(e);
-      _mensajeReg.value = 'Ocurrio un error intentelo mas tarde';
       return false;
     }
   }
