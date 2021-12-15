@@ -11,6 +11,7 @@ class AuthController extends GetxController{
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
+
   Future<bool> signIn(email,pass) async{
     try {
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -55,7 +56,16 @@ class AuthController extends GetxController{
     }
   }
 
-
+  Future<bool> signOut() async{
+    try {
+      await auth.signOut();
+      return true;
+    } catch (e) {
+      print(e);
+      _mensajeReg.value = 'Ocurrio un error intentelo mas tarde';
+      return false;
+    }
+  }
 
 
 }

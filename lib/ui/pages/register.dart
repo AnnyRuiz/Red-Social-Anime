@@ -15,6 +15,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final emailCtrl = TextEditingController();
   final pswdCtrl = TextEditingController();
+  final nameCtrl = TextEditingController();
+  final lastCtrl = TextEditingController();
+  final userCtrl = TextEditingController();
   AuthController authController = Get.find();
 
   String mensaje = '';
@@ -53,7 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     labelText: 'Usuario',
                   ),
                   onChanged: (text) {},
-                  controller: emailCtrl,
+                  controller: userCtrl,
                 ),
               ),
             ),
@@ -66,7 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     labelText: 'Nombre',
                   ),
                   onChanged: (text) {},
-                  controller: pswdCtrl,
+                  controller: nameCtrl,
                 ),
               ),
             ),
@@ -79,6 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     labelText: 'Apellido',
                   ),
                   onChanged: (text) {},
+                  controller: lastCtrl,
                 ),
               ),
             ),
@@ -91,6 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     labelText: 'Email',
                   ),
                   onChanged: (text) {},
+                  controller: emailCtrl,
                 ),
               ),
             ),
@@ -103,6 +108,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     labelText: 'Contraseña',
                   ),
                   onChanged: (text) {},
+                  controller: pswdCtrl,
                 ),
               ),
             ),
