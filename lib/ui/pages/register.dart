@@ -24,7 +24,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void signup() async{
     bool correctUser = false;
-    await authController.signUp(emailCtrl.text, pswdCtrl.text).then((value) => {
+    await authController.signUp(userCtrl.text, nameCtrl.text, lastCtrl.text, emailCtrl.text, pswdCtrl.text).then((value) => {
       correctUser = value
     });
     if(correctUser) {
@@ -131,7 +131,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Text(
                     mensaje,
                     style: TextStyle(
-                      color: Colors.white,
                       fontSize: 20,
                     ),
                   ),

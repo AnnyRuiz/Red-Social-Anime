@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../widges/post_list.dart';
+import 'package:max_anime/domain/use_cases/controllers/profile_controller.dart';
 
 class Profile extends StatefulWidget{
 
@@ -14,9 +16,27 @@ class Profile extends StatefulWidget{
 class _Profile extends State<Profile>{
 
   String pathImage = 'assets/imags/profile.jpg';
-  String nombre = 'Eduardo Jimenez';
-  String email = 'edwjimenez@gmail.com';
+  String nombre = '';
+  String email = '';
+  ProfileController profile = Get.find();
 
+  void getData() async {
+    bool retorno = false;
+    await profile.loadData().then((value) =>
+      retorno = value
+    );
+    setState(() {
+      if(!retorno){
+        print('Ocurrio un error');
+      }
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +64,14 @@ class _Profile extends State<Profile>{
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              nombre,
+              '${profile.nombre}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 21
               ),
             ),
             Text(
-              email,
+                '${profile.email}',
                 style: TextStyle(
                     fontSize: 15
                 )
@@ -85,7 +105,11 @@ class _Profile extends State<Profile>{
         child: Column(
           children: [
             userData,
-            Expanded(child: PostList('profile'),)
+            Expanded(
+              child: ListView(
+                children: profile.listPosts,
+              ),
+            )
           ],
         ),
       ),
