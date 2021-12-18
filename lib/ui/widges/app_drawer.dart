@@ -85,7 +85,6 @@ class _AppDrawer extends State<AppDrawer>{
               style: TextStyle(
                   fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFA54515)
               ),
             ),
 
@@ -97,7 +96,8 @@ class _AppDrawer extends State<AppDrawer>{
                     child: Text(
                       'Ubicación',
                       style: TextStyle(
-                          fontSize: 15
+                          fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
                     )),
                 SwitchButton(

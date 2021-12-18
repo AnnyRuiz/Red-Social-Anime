@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:max_anime/domain/use_cases/controllers/authentication_controller.dart';
 import 'package:max_anime/ui/widges/post.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class ProfileController extends GetxController{
 
@@ -60,5 +64,27 @@ class ProfileController extends GetxController{
       print('maxanime: error en profile posts $e');
       return false;
     }
+  }
+
+  Future<bool> uploadPhoto() async{
+    String uid = AuthController.uid;
+    firebase_storage.FirebaseStorage storage = await firebase_storage.FirebaseStorage.instance;
+    CollectionReference users = await FirebaseFirestore.instance.collection('users');
+    final picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if(image != null){
+      final imageFile = File(image.path);
+      try {
+        await storage.ref('images/${uid}.jpg').putFile(imageFile);
+        String url = await storage.ref('images/${uid}.jpg').getDownloadURL();
+        await users.doc(uid).update({'path_image':url});
+
+        return true;
+      } catch (e) {
+        print(e);
+        return false;
+      }
+    }
+    return false;
   }
 }

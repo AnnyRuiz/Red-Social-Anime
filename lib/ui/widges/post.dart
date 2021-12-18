@@ -34,7 +34,7 @@ class _Post extends State<Post>{
           shape: BoxShape.circle,
           image: DecorationImage(
               fit:BoxFit.cover,
-              image: AssetImage(widget.pathImage)
+              image: NetworkImage(widget.pathImage)
           )
       ),
     );

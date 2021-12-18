@@ -28,7 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
       correctUser = value
     });
     if(correctUser) {
-      Get.offNamed('/principal');
+      Get.offNamed('/login');
     }else{
       print('maxanime: entre a mal');
       setState(() {

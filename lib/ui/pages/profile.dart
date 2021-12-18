@@ -15,9 +15,6 @@ class Profile extends StatefulWidget{
 
 class _Profile extends State<Profile>{
 
-  String pathImage = 'assets/imags/profile.jpg';
-  String nombre = '';
-  String email = '';
   ProfileController profile = Get.find();
 
   void getData() async {
@@ -30,6 +27,23 @@ class _Profile extends State<Profile>{
         print('Ocurrio un error');
       }
     });
+  }
+
+  void pickPhoto() async{
+    bool done = false;
+    await profile.uploadPhoto().then((value) => done = value);
+    if(done){
+      final snackBar = SnackBar(
+        content: const Text('Foto actualizada correctamente'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      getData();
+    }else{
+      final snackBar = SnackBar(
+        content: const Text('Ocurrio un error... Intentelo mas tarde'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   @override
@@ -52,7 +66,7 @@ class _Profile extends State<Profile>{
           shape: BoxShape.circle,
           image: DecorationImage(
               fit:BoxFit.cover,
-              image: AssetImage(pathImage)
+              image: NetworkImage(profile.pathImage)
           )
       ),
     );
@@ -85,7 +99,7 @@ class _Profile extends State<Profile>{
       height: 80,
       width: 50,
       alignment: Alignment.center,
-      child: Icon(Icons.edit),
+      child: IconButton(onPressed: pickPhoto,icon: Icon(Icons.edit),),
     );
 
     final userData = Container(

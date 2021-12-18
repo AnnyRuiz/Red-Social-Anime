@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class AuthController extends GetxController{
 
@@ -12,6 +13,8 @@ class AuthController extends GetxController{
 
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
+
   static String uid = '';
 
   Future<bool> signIn(email,pass) async{
@@ -47,17 +50,18 @@ class AuthController extends GetxController{
       var currentUser = auth.currentUser;
       //TODO: VALIDAR QUE EL USER SEA UNICO
       if (currentUser != null) {
-        CollectionReference users = firestore.collection('users');
+        CollectionReference users = await firestore.collection('users');
+        String url = await storage.ref('images/user.png').getDownloadURL();
         await users
             .doc(currentUser.uid)
             .set({
           'user': user,
           'name': name,
           'last_name': last_name,
-          'email': email
+          'email': email,
+          'path_image': url
         }).then((value) => print("User Added"));
       }
-      getUid();
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
