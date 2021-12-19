@@ -13,7 +13,6 @@ class AppDrawer extends StatefulWidget{
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _AppDrawer(switchUbicacion);
   }
 
@@ -61,8 +60,7 @@ class _AppDrawer extends State<AppDrawer>{
     void cambiarUbicacion(){
       
     }
-    
-    // TODO: implement build
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.all(30),

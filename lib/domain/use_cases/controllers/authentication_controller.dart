@@ -23,7 +23,7 @@ class AuthController extends GetxController{
           email: email,
         password: pass
       );
-      print('maxanime: credencial de usuario tras login' + '${userCredential}');
+      //print('maxanime: credencial de usuario tras login' + '${userCredential}');
       getUid();
       return true;
     } on FirebaseAuthException catch (e) {
@@ -52,15 +52,14 @@ class AuthController extends GetxController{
       if (currentUser != null) {
         CollectionReference users = await firestore.collection('users');
         String url = await storage.ref('images/user.png').getDownloadURL();
-        await users
-            .doc(currentUser.uid)
-            .set({
+        await users.doc(currentUser.uid).set({
           'user': user,
           'name': name,
           'last_name': last_name,
           'email': email,
-          'path_image': url
-        }).then((value) => print("User Added"));
+          'path_image': url,
+          'last_connected': DateTime.now()
+        }).then((value) => print("maxanime: User Added"));
       }
       return true;
     } on FirebaseAuthException catch (e) {
@@ -71,7 +70,7 @@ class AuthController extends GetxController{
       }
       return false;
     } catch (e) {
-      print(e);
+      print('maxanime: error en signup: $e');
       _mensajeReg.value = 'Ocurrio un error intentelo mas tarde';
       return false;
     }
@@ -83,7 +82,7 @@ class AuthController extends GetxController{
       getUid();
       return true;
     } catch (e) {
-      print(e);
+      print('maxanime: error en signout: $e');
       return false;
     }
   }

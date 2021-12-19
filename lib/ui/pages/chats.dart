@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'chats_list.dart';
 import 'package:get/get.dart';
+import 'package:max_anime/domain/use_cases/controllers/chats_controller.dart';
 
 class Chats extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _Chats();
   }
 
@@ -14,13 +14,48 @@ class Chats extends StatefulWidget{
 
 class _Chats extends State<Chats>{
 
+  ChatsController chatControl = Get.find();
+
   void funcion(){
 
   }
 
+  void funcionMas(value){
+    switch(value){
+      case 'actualizar':
+        getChats();
+        break;
+    }
+  }
+
+  void newConversation(){
+    Get.toNamed('/new_chat');
+    deactivate();
+  }
+
+  void getChats() async {
+    bool retorno = false;
+    await chatControl.getSalas().then((value) =>
+      retorno = value
+    );
+    setState(() {
+      print('maxanime: si entre a set state');
+      if(!retorno){
+        print('maxanime: Ocurrio un error en chats getChats');
+      }
+    });
+    chatControl.actualizarUltimaConexion();
+  }
+
+  @override
+  void initState() {
+    // TODO: actualizar ultima conexion
+    super.initState();
+    getChats();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return //MaterialApp(
       //theme: ThemeData.light(),
       //darkTheme: ThemeData.dark(),
@@ -31,11 +66,6 @@ class _Chats extends State<Chats>{
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            leading: BackButton(
-              onPressed: (){
-                Navigator.pop(context);
-              },
-            ),
             bottom: const TabBar(
               tabs: [
                 Tab(text: 'PRINCIPAL'),
@@ -45,17 +75,25 @@ class _Chats extends State<Chats>{
             title: const Text('Chats'),
             actions: [
               IconButton(onPressed: funcion, icon: Icon(Icons.search)),
-              IconButton(onPressed: funcion, icon: Icon(Icons.more_vert))
+              PopupMenuButton(
+                itemBuilder: (BuildContext context) =>[
+                  PopupMenuItem(child: Text('Actualizar'), value: 'actualizar',)
+                ],
+                onSelected: funcionMas,
+              ),
+
             ],
           ),
           body: TabBarView(
             children: [
-              ChatsList('principal'),
+              ListView(
+                children: chatControl.listChats,
+              ),
               ChatsList('cerca')
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: funcion,
+            onPressed: newConversation,
             child: const Icon(Icons.question_answer),
           ),
         ),

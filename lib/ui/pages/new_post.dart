@@ -5,7 +5,6 @@ import 'package:max_anime/domain/use_cases/controllers/main_feed_controller.dart
 class NewPost extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _NewPost();
   }
 
@@ -36,7 +35,6 @@ class _NewPost extends State<NewPost>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text('Nuevo Post'),

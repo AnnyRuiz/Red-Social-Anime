@@ -15,7 +15,6 @@ class Principal extends StatefulWidget{
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _Principal();
   }
 
@@ -82,7 +81,6 @@ class _Principal extends State<Principal>{
       _key.currentState!.openEndDrawer();
     }
 
-    // TODO: implement build
     return Scaffold(
         key: _key,
 

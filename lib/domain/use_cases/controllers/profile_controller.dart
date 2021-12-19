@@ -71,7 +71,7 @@ class ProfileController extends GetxController{
     firebase_storage.FirebaseStorage storage = await firebase_storage.FirebaseStorage.instance;
     CollectionReference users = await FirebaseFirestore.instance.collection('users');
     final picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery, imageQuality: 10, maxHeight: 512, maxWidth: 512 );
     if(image != null){
       final imageFile = File(image.path);
       try {
@@ -81,7 +81,7 @@ class ProfileController extends GetxController{
 
         return true;
       } catch (e) {
-        print(e);
+        print('maxanime: Error en profile controller $e');
         return false;
       }
     }

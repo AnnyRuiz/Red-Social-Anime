@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:max_anime/ui/widges/post.dart';
-
 import 'authentication_controller.dart';
 
 class MainFeedController extends GetxController{
@@ -37,7 +35,7 @@ class MainFeedController extends GetxController{
           if(snapshot.exists){
             post['user'] = snapshot['user'];
             post['path_image'] = snapshot.get('path_image');
-            print('maxanime: los valores de la lista de posts en feed es: ${post['user']} ${post['path_image']}');
+            //print('maxanime: los valores de la lista de posts en feed es: ${post['user']} ${post['path_image']}');
           }
         });
 
@@ -45,7 +43,7 @@ class MainFeedController extends GetxController{
 
       }
 
-      print('maxanime: la lista de posts en feed es 2: $postsData');
+      //print('maxanime: la lista de posts en feed es 2: $postsData');
       return true;
 
     }catch(e){
@@ -64,11 +62,12 @@ class MainFeedController extends GetxController{
       'uploaded': DateTime.now(),
       'user_id': uid
     })
-        .then((value) =>
+        .then((value) => {
+          print('maxanime: lo que devuelve al hacer un post es: ${value.id}'),
           response = true
-        )
+        })
         .catchError((error) => {
-          print(error),
+          print('maxanime: Error en main feed en publishpost: $error'),
           response = false
         }
         );

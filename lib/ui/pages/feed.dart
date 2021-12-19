@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 class Feed extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _Feed();
   }
 
@@ -24,23 +23,21 @@ class _Feed extends State<Feed>{
     retorno = value
     );
     setState(() {
-      print('maxanime: ${feedController.listPosts}');
+      //print('maxanime: ${feedController.listPosts}');
       if(!retorno){
-        print('Ocurrio un error en feed');
+        print('maxanime: Ocurrio un error en feed getData');
       }
     });
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getData();
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: Container(
         child: ListView(

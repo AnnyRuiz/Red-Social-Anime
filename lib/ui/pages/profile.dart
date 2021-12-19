@@ -7,7 +7,6 @@ class Profile extends StatefulWidget{
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _Profile();
   }
 
@@ -24,7 +23,7 @@ class _Profile extends State<Profile>{
     );
     setState(() {
       if(!retorno){
-        print('Ocurrio un error');
+        print('maxanime: Ocurrio un error en profile get data');
       }
     });
   }
@@ -54,7 +53,6 @@ class _Profile extends State<Profile>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
 
     final photo = Container(
       width: 80,
