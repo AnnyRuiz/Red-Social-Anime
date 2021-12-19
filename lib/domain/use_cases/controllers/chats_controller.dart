@@ -5,13 +5,16 @@ import 'authentication_controller.dart';
 
 class ChatsController extends GetxController{
 
-  var _listChats = [ChatRow(pathImage: '', nombre: '', ultima_conexion: '', chat_visto: false,listener_id: '',)].obs;
-  var _listUsers = [ChatRow(pathImage: '', nombre: '', ultima_conexion: '', chat_visto: false,listener_id: '',)].obs;
+  final _listChats = [ChatRow(pathImage: '', nombre: '', ultima_conexion: '', chat_visto: false,listener_id: '',)].obs;
+  final _listUsers = [ChatRow(pathImage: '', nombre: '', ultima_conexion: '', chat_visto: false,listener_id: '',)].obs;
   List<ChatRow> get listChats => _listChats;
   List<ChatRow> get listUsers => _listUsers;
   List<Map> chatsData = [];
   static List<String> listaListeners = [];
 
+//--------------------------------------------------------------------------------------------------------
+//------------------------------------------------OBTENER LAS SALAS---------------------------------------
+//--------------------------------------------------------------------------------------------------------
   Future<bool> getSalas() async{
     _listChats.clear();
     chatsData.clear();
@@ -84,6 +87,10 @@ class ChatsController extends GetxController{
     }
   }
 
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------CALCULAR DIFERENCIA DE FECHAS------------------------------------
+//--------------------------------------------------------------------------------------------------------
+
   String calcularDiferencia(DateTime fecha1, DateTime fecha2){
     String mensaje = '';
     int diferencia = fecha1.difference(fecha2).inMinutes;
@@ -104,6 +111,10 @@ class ChatsController extends GetxController{
     return mensaje;
   }
 
+//--------------------------------------------------------------------------------------------------------
+//---------------------------------------ACTUALIZAR ULTIMA CONEXION DE CHATS---------------------------------
+//--------------------------------------------------------------------------------------------------------
+
   void actualizarUltimaConexion() async{
     String uid = AuthController.uid;
     CollectionReference users = await FirebaseFirestore.instance.collection('users');
@@ -111,6 +122,9 @@ class ChatsController extends GetxController{
       'last_connected': DateTime.now()
     });
   }
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------CREAR UNA NUEVA CONVERSACION--------------------------------------
+//--------------------------------------------------------------------------------------------------------
 
   Future<bool> newConversation() async{
 
@@ -148,9 +162,14 @@ class ChatsController extends GetxController{
     }
   }
 
-  void sendMessage(String interaction_id, String listener_id) async{
+//--------------------------------------------------------------------------------------------------------
+//----------------------------------------ENVIAR MENSAJES-------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+
+  Future<String> sendMessage(String interaction_id, String listener_id, String mensaje) async{
     CollectionReference salas = await FirebaseFirestore.instance.collection('salas');
     CollectionReference interactions = await FirebaseFirestore.instance.collection('interactions');
+    CollectionReference mensajes = await FirebaseFirestore.instance.collection('mensajes');
     String uid = AuthController.uid;
 
     if(interaction_id == ""){
@@ -170,11 +189,56 @@ class ChatsController extends GetxController{
           'sala_id': sala_id,
           'user_id': listener_id
         });
+
+        await mensajes.add({
+          'date':DateTime.now(),
+          'mensaje': mensaje,
+          'sala_id': sala_id,
+          'user_id': uid
+        });
+
+        return sala_id;
+
       }catch(e){
         print('maxanime: error en chatscontroller al agregar nueva interaccion: $e');
       }
-    }else{
+    }else {
+      try {
+        await mensajes.add({
+          'date': DateTime.now(),
+          'mensaje': mensaje,
+          'sala_id': interaction_id,
+          'user_id': uid
+        });
 
+        await interactions.where('sala_id', isEqualTo: interaction_id).get().then((QuerySnapshot querySnapshot){
+          querySnapshot.docs.forEach((docu) async{
+            await interactions.doc(docu.id).update({'last_change': DateTime.now()});
+          });
+        });
+      }catch(e){
+        print('maxanime: Error al agregar mensaje: $e');
+      }
+    }
+    return '';
+  }
+
+//-------------------------------GUARDAR LAST SEEN---------------------------------
+
+  void guardarLastSeen(String sala_id) async{
+    CollectionReference interactions = await FirebaseFirestore.instance.collection('interactions');
+    String uid = AuthController.uid;
+    try {
+      print('maxanime: deberia actalizar last seen');
+      await interactions.where('sala_id', isEqualTo: sala_id).get().then((QuerySnapshot querySnapshot){
+        querySnapshot.docs.forEach((docu) async{
+          if(docu['user_id'] == uid){
+            await interactions.doc(docu.id).update({'last_seen':DateTime.now()});
+          }
+        });
+      });
+    }catch(e){
+      print('maxanime: error al actulizar lastseen: $e');
     }
   }
 
