@@ -24,13 +24,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void signup() async{
     bool correctUser = false;
-    await authController.signUp(emailCtrl.text, pswdCtrl.text).then((value) => {
+    await authController.signUp(userCtrl.text, nameCtrl.text, lastCtrl.text, emailCtrl.text, pswdCtrl.text).then((value) => {
       correctUser = value
     });
     if(correctUser) {
-      Get.offNamed('/principal');
+      Get.offNamed('/login');
     }else{
-      print('maxanime: entre a mal');
       setState(() {
         mensaje = '${authController.mensajeReg}';
       });
@@ -40,6 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Registro'),
       ),
@@ -51,6 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Container(
                 margin: const EdgeInsets.all(20.0),
                 child: TextField(
+                  textInputAction: TextInputAction.next,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Usuario',
@@ -64,6 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Container(
                 margin: const EdgeInsets.all(20.0),
                 child: TextField(
+                  textInputAction: TextInputAction.next,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Nombre',
@@ -77,6 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Container(
                 margin: const EdgeInsets.all(20.0),
                 child: TextField(
+                  textInputAction: TextInputAction.next,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Apellido',
@@ -90,6 +93,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Container(
                 margin: const EdgeInsets.all(20.0),
                 child: TextField(
+                  textInputAction: TextInputAction.next,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Email',
@@ -103,23 +107,13 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Container(
                 margin: const EdgeInsets.all(20.0),
                 child: TextField(
+                  textInputAction: TextInputAction.done,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Contraseña',
                   ),
                   onChanged: (text) {},
                   controller: pswdCtrl,
-                ),
-              ),
-            ),
-            Center(
-              child: Container(
-                margin: const EdgeInsets.all(20.0),
-                child: MaterialButton(
-                  child: const Text("Volver!"),
-                  onPressed: () {
-                    Get.offNamed('/login');
-                  },
                 ),
               ),
             ),
@@ -131,7 +125,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Text(
                     mensaje,
                     style: TextStyle(
-                      color: Colors.white,
                       fontSize: 20,
                     ),
                   ),
@@ -141,6 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+
         onPressed: signup,
         tooltip: 'Registrar',
         child: const Icon(Icons.add),

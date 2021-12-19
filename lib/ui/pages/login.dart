@@ -26,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
     if(correctUser) {
       Get.offNamed('/principal');
     }else{
-      print('maxanime: entre a mal');
       setState(() {
         mensaje = '${authController.mensaje}';
       });
@@ -54,6 +53,8 @@ class _LoginPageState extends State<LoginPage> {
                     child: Container(
                       margin: const EdgeInsets.all(20.0),
                       child: TextField(
+                        autofocus: true,
+                        textInputAction: TextInputAction.next,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Correo',
@@ -69,6 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Container(
                       margin: const EdgeInsets.all(20.0),
                       child: TextField(
+                        textInputAction: TextInputAction.done,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Contraseña',
@@ -88,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Text("Registrarse!"),
                         onPressed: () {
                           //Navigator.pushNamed(context, '/register');
-                          Get.offNamed('/register');
+                          Get.toNamed('/register');
                         },
                       ),
                     ),

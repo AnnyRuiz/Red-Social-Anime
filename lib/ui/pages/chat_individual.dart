@@ -1,6 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:max_anime/domain/use_cases/controllers/chats_controller.dart';
 
-class ChatIndividual extends StatelessWidget{
+class ChatIndividual extends StatefulWidget{
+
+  String pathImage;
+  String nombre;
+  String interaction_id;
+  String listener_id;
+
+  ChatIndividual({Key ? key,
+    required this.pathImage,
+    required this.nombre,
+    required this.interaction_id,
+    required this.listener_id});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _ChatIndividual();
+  }
+
+}
+
+class _ChatIndividual extends State<ChatIndividual>{
+
+  ChatsController chats = Get.find();
+  TextEditingController messageController = TextEditingController();
 
   void funcionFloating(){
 
@@ -10,14 +35,27 @@ class ChatIndividual extends StatelessWidget{
 
   }
 
-  String pathImage = 'assets/imags/profile';
-  String nombre = 'Pepito';
+  void sendMessage() async{
+    if(messageController.text != '') {
+      chats.sendMessage(widget.interaction_id, widget.listener_id);
+    }
+  }
 
-  ChatIndividual(this.pathImage,this.nombre);
+  void getMensajes(){
+    //TODO: logica para obtener mensajes
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    if(widget.interaction_id != ''){
+      getMensajes();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
 
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
@@ -31,7 +69,7 @@ class ChatIndividual extends StatelessWidget{
                 shape: BoxShape.circle,
                 image: DecorationImage(
                     fit:BoxFit.cover,
-                    image: AssetImage(pathImage)
+                    image: NetworkImage(widget.pathImage)
                 )
             ),
           ),
@@ -40,7 +78,7 @@ class ChatIndividual extends StatelessWidget{
                 left: 10
             ),
             child: Text(
-              nombre,
+              widget.nombre,
             ),
           )
         ]
@@ -57,6 +95,7 @@ class ChatIndividual extends StatelessWidget{
                 right: 10
               ),
               child: TextField(
+                controller: messageController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Escribe tu mensaje...'
@@ -67,7 +106,7 @@ class ChatIndividual extends StatelessWidget{
               height: 60,
               width: 60,
               child: FloatingActionButton(
-                onPressed: funcion,
+                onPressed: sendMessage,
                 child: const Icon(Icons.send),
               ),
             )

@@ -4,6 +4,8 @@ import 'package:max_anime/ui/pages/login.dart';
 import 'package:max_anime/ui/pages/principal.dart';
 import 'package:max_anime/ui/pages/register.dart';
 import 'package:max_anime/ui/pages/ubicacion.dart';
+import 'package:max_anime/ui/pages/new_post.dart';
+import 'package:max_anime/ui/pages/new_conv.dart';
 import 'theme/theme.dart';
 import 'package:get/get.dart';
 import 'pages/chats.dart';
@@ -25,7 +27,9 @@ class App extends StatelessWidget {
         GetPage(name: '/register', page: () => RegisterPage()),
         GetPage(name: '/principal', page: () => Principal(), transition: Transition.zoom),
         GetPage(name: '/chats', page: () => Chats()),
-        GetPage(name: '/ubicacion', page: () => Ubicacion('Barranquilla'))
+        GetPage(name: '/ubicacion', page: () => Ubicacion('Barranquilla')),
+        GetPage(name: '/new_post', page: () => NewPost()),
+        GetPage(name: '/new_chat', page: () => NewConversation()),
       ],
     );
   }

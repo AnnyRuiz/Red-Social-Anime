@@ -11,7 +11,6 @@ class Post extends StatefulWidget{
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _Post();
   }
 
@@ -20,7 +19,6 @@ class Post extends StatefulWidget{
 class _Post extends State<Post>{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
 
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -34,7 +32,7 @@ class _Post extends State<Post>{
           shape: BoxShape.circle,
           image: DecorationImage(
               fit:BoxFit.cover,
-              image: AssetImage(widget.pathImage)
+              image: NetworkImage(widget.pathImage)
           )
       ),
     );

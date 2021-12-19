@@ -11,7 +11,6 @@ class SwitchButton extends StatefulWidget{
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _SwitchButton();
   }
 
@@ -28,7 +27,6 @@ class _SwitchButton extends State<SwitchButton>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return CupertinoSwitch(
         value: widget.switchValue,
         onChanged: cambiarSwitch

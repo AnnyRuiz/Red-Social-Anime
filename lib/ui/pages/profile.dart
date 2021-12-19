@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../widges/post_list.dart';
+import 'package:max_anime/domain/use_cases/controllers/profile_controller.dart';
 
 class Profile extends StatefulWidget{
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _Profile();
   }
 
@@ -13,14 +14,45 @@ class Profile extends StatefulWidget{
 
 class _Profile extends State<Profile>{
 
-  String pathImage = 'assets/imags/profile.jpg';
-  String nombre = 'Eduardo Jimenez';
-  String email = 'edwjimenez@gmail.com';
+  ProfileController profile = Get.find();
 
+  void getData() async {
+    bool retorno = false;
+    await profile.loadData().then((value) =>
+      retorno = value
+    );
+    setState(() {
+      if(!retorno){
+        print('maxanime: Ocurrio un error en profile get data');
+      }
+    });
+  }
+
+  void pickPhoto() async{
+    bool done = false;
+    await profile.uploadPhoto().then((value) => done = value);
+    if(done){
+      final snackBar = SnackBar(
+        content: const Text('Foto actualizada correctamente'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      getData();
+    }else{
+      final snackBar = SnackBar(
+        content: const Text('Ocurrio un error... Intentelo mas tarde'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
 
     final photo = Container(
       width: 80,
@@ -32,7 +64,7 @@ class _Profile extends State<Profile>{
           shape: BoxShape.circle,
           image: DecorationImage(
               fit:BoxFit.cover,
-              image: AssetImage(pathImage)
+              image: NetworkImage(profile.pathImage)
           )
       ),
     );
@@ -44,14 +76,14 @@ class _Profile extends State<Profile>{
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              nombre,
+              '${profile.nombre}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 21
               ),
             ),
             Text(
-              email,
+                '${profile.email}',
                 style: TextStyle(
                     fontSize: 15
                 )
@@ -65,7 +97,7 @@ class _Profile extends State<Profile>{
       height: 80,
       width: 50,
       alignment: Alignment.center,
-      child: Icon(Icons.edit),
+      child: IconButton(onPressed: pickPhoto,icon: Icon(Icons.edit),),
     );
 
     final userData = Container(
@@ -85,7 +117,11 @@ class _Profile extends State<Profile>{
         child: Column(
           children: [
             userData,
-            Expanded(child: PostList('profile'),)
+            Expanded(
+              child: ListView(
+                children: profile.listPosts,
+              ),
+            )
           ],
         ),
       ),

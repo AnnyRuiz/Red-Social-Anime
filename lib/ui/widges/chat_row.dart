@@ -1,20 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../pages/chat_individual.dart';
 
 class ChatRow extends StatefulWidget{
 
-  String pathImage = 'assets/imags/profile.jpg';
-  String nombre = 'Pepito';
-  String ultima_conexion = "Activo hace 10 minutos";
-  bool nuevo_chat = false;
+  String pathImage;
+  String nombre;
+  String ultima_conexion;
+  bool chat_visto;
+  String interaction_id;
+  String listener_id;
 
-  ChatRow(this.pathImage, this.nombre, this.ultima_conexion, this.nuevo_chat);
+  ChatRow({Key? key,
+            required this.pathImage,
+            required this.nombre,
+            required this.ultima_conexion,
+            required this.chat_visto,
+            this.interaction_id='',
+            required this.listener_id});
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return _ChatRow(pathImage,nombre,ultima_conexion,nuevo_chat);
+    return _ChatRow();
   }
 
 }
@@ -22,22 +30,26 @@ class ChatRow extends StatefulWidget{
 class _ChatRow extends State<ChatRow>{
 
   void funcion(){
-    Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ChatIndividual(pathImage, nombre))
-    );
+    if(Get.currentRoute == '/chats'){
+      Get.to(ChatIndividual(
+          pathImage: widget.pathImage,
+          nombre: widget.nombre,
+          interaction_id: widget.interaction_id,
+          listener_id: widget.listener_id,
+      ));
+    }else{
+      Get.off(ChatIndividual(
+        pathImage: widget.pathImage,
+        nombre: widget.nombre,
+        interaction_id: widget.interaction_id,
+        listener_id: widget.listener_id,
+      ));
+    }
+
   }
-
-  String pathImage = 'assets/imags/profile.jpg';
-  String nombre = 'Pepito';
-  String ultima_conexion = "Activo hace 10 minutos";
-  bool nuevo_chat = false;
-
-  _ChatRow(this.pathImage, this.nombre, this.ultima_conexion, this.nuevo_chat);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
 
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
@@ -49,7 +61,7 @@ class _ChatRow extends State<ChatRow>{
           shape: BoxShape.circle,
           image: DecorationImage(
               fit:BoxFit.cover,
-              image: AssetImage(pathImage)
+              image: NetworkImage(widget.pathImage)
           )
       ),
     );
@@ -67,7 +79,7 @@ class _ChatRow extends State<ChatRow>{
             ),
             height: 40,
             child: Text(
-              nombre,
+              widget.nombre,
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontSize: 20,
@@ -82,7 +94,7 @@ class _ChatRow extends State<ChatRow>{
               ),
             height: 30,
             child: Text(
-              'Activo hace ' + ultima_conexion,
+              'Activo ' + widget.ultima_conexion,
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontSize: 15,
@@ -98,7 +110,7 @@ class _ChatRow extends State<ChatRow>{
       height: 80,
       child: Icon(
         Icons.circle,
-        color: this.nuevo_chat ? Color(0xFF1597a9) : Colors.transparent,
+        color: widget.chat_visto ?  Colors.transparent :Color(0xFF1597a9),
       ),
     );
 
@@ -108,7 +120,8 @@ class _ChatRow extends State<ChatRow>{
           margin: EdgeInsets.only(
             left: 20,
             right: 20,
-            top: 25
+            top: 12,
+            bottom: 12
           ),
           child: Row(
             children: [

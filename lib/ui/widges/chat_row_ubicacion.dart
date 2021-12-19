@@ -12,7 +12,6 @@ class ChatRowUbicacion extends StatefulWidget{
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _ChatRowUbicacion(pathImage,nombre,distancia);
   }
 
@@ -23,7 +22,7 @@ class _ChatRowUbicacion extends State<ChatRowUbicacion>{
   void funcion(){
     Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ChatIndividual(pathImage, nombre))
+        MaterialPageRoute(builder: (context) => ChatIndividual(pathImage: pathImage, nombre: nombre, interaction_id: '', listener_id: '',))
     );
   }
 
@@ -35,7 +34,6 @@ class _ChatRowUbicacion extends State<ChatRowUbicacion>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
 
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);

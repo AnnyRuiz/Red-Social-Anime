@@ -15,7 +15,6 @@ class Principal extends StatefulWidget{
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _Principal();
   }
 
@@ -82,7 +81,6 @@ class _Principal extends State<Principal>{
       _key.currentState!.openEndDrawer();
     }
 
-    // TODO: implement build
     return Scaffold(
         key: _key,
 
@@ -95,7 +93,7 @@ class _Principal extends State<Principal>{
           actions: [
             IconButton(
                 onPressed: cambiarTema,
-                icon: modoOscuro ? Icon(Icons.wb_sunny) : Icon(Icons.nights_stay)
+                icon: modoOscuro ? Icon(Icons.light_mode) : Icon(Icons.dark_mode)
             ),
             IconButton(onPressed: paginaMensajes, icon: Icon(Icons.message)),
             IconButton(
@@ -115,7 +113,9 @@ class _Principal extends State<Principal>{
           items: BottomBar().bottom_items(),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: (){},
+          onPressed: (){
+            Get.toNamed('new_post');
+          },
           child: Icon(Icons.add),
         )
     );

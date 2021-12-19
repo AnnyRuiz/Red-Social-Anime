@@ -10,7 +10,6 @@ class PostList extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     final feed = ListView(
       children: [
         Post(nombre: 'Eduardo Avendaño', pathImage: 'assets/imags/profile.jpg', contenido: 'El primer capitulo de Arcane ... simplemente 🤯'),

@@ -8,7 +8,6 @@ import '../pages/profile.dart';
 class BottomBar{
 
   List<BottomNavigationBarItem> bottom_items() {
-    // TODO: implement build
     return [
         BottomNavigationBarItem(
             icon: Icon(Icons.people),
