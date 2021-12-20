@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "44766294065",
-    "project_id": "max-anime-5ce78",
-    "storage_bucket": "max-anime-5ce78.appspot.com"
+    "project_number": "1007514709945",
+    "project_id": "rexmaxanime",
+    "storage_bucket": "rexmaxanime.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:44766294065:android:6ddc04a54111cf27f82510",
+        "mobilesdk_app_id": "1:1007514709945:android:15bc468e8132eb9186d068",
         "android_client_info": {
-          "package_name": "com.max_anime"
+          "package_name": "com.example.red_max_anime"
         }
       },
       "oauth_client": [
         {
-          "client_id": "44766294065-m4npia52p4oika7ap7hfmdbfg5voc8lj.apps.googleusercontent.com",
+          "client_id": "1007514709945-vb2b252nnr8m60g30fo6kqvluqulq3o1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBz0vu4PrmVyfp42XbHY8I5zkq_nROj7d0"
+          "current_key": "AIzaSyBNQ1ELi0JxYVSymxoIFVS1UnQep79oAL8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "44766294065-m4npia52p4oika7ap7hfmdbfg5voc8lj.apps.googleusercontent.com",
+              "client_id": "1007514709945-vb2b252nnr8m60g30fo6kqvluqulq3o1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

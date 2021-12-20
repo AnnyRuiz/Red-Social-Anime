@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:max_anime/domain/use_cases/controllers/main_feed_controller.dart';
-import 'package:max_anime/ui/app.dart';
-import 'package:get/get.dart';
-import 'package:max_anime/domain/use_cases/controllers/authentication_controller.dart';
-import 'package:max_anime/domain/use_cases/controllers/profile_controller.dart';
-import 'package:max_anime/domain/use_cases/controllers/chats_controller.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:loggy/loggy.dart';
+import 'ui/my_app.dart';
 
-void main() async{
+void main() {
+  // this is the key
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-
-  Get.put(MainFeedController());
-  Get.put(ProfileController());
-  Get.put(AuthController());
-  Get.put(ChatsController());
-
-  runApp(const App());
+  Loggy.initLoggy(
+    logPrinter: const PrettyPrinter(
+      showColors: true,
+    ),
+  );
+  runApp(const MyApp());
 }

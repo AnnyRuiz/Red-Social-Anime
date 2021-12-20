@@ -1,35 +1,21 @@
 import 'package:flutter/material.dart';
+import 'colors.dart';
+import 'text_styles.dart';
 
 class MyTheme {
   static ThemeData get ligthTheme {
     return ThemeData(
       brightness: Brightness.light,
-      primarySwatch: Colors.blue,
-      accentColor: Colors.green,
-
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        //style: ElevatedButton.styleFrom(
-        //textStyle: AppTextStyle.defaultFontStyle,
-        //  ),
+      primarySwatch: AppColors.createMaterialColor(AppColors.primaryColor),
+      colorScheme: AppColors.lightScheme,
+      fontFamily: AppTextStyle.fontFamily,
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        foregroundColor: Colors.white,
       ),
       inputDecorationTheme: InputDecorationTheme(
+        border: const OutlineInputBorder(),
         fillColor: Colors.grey.shade300,
       ),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        // style: ElevatedButton.styleFrom(
-        //   textStyle: AppTextStyle.defaultFontStyle,
-        // ),
-      ),
-      textButtonTheme: TextButtonThemeData(
-        // style: TextButton.styleFrom(
-        //   textStyle: AppTextStyle.defaultFontStyle,
-        // ),
-      ),
-      //if we need to change some of the parameters
-      // textTheme: TextTheme(
-      //   headline1: AppTextStyle.headline1,
-      //   bodyText2: AppTextStyle.appBodyText,
-      // )
     );
   }
 
@@ -38,34 +24,17 @@ class MyTheme {
   static ThemeData get darkTheme {
     return ThemeData(
       brightness: Brightness.dark,
-      primarySwatch: Colors.grey,
-      accentColor: Colors.red,
-      toggleableActiveColor:Colors.orange,
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        //     style: ElevatedButton.styleFrom(
-        //   textStyle: AppTextStyle.defaultFontStyle,
-        // )
+      primarySwatch: AppColors.createMaterialColor(AppColors.primaryColor),
+      colorScheme: AppColors.darkScheme,
+      toggleableActiveColor:
+          AppColors.createMaterialColor(AppColors.primaryColor).shade500,
+      // this can all be copied, waiting for verification
+      fontFamily: AppTextStyle.fontFamily,
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        foregroundColor: Colors.white,
       ),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        // style: ElevatedButton.styleFrom(
-        //   textStyle: AppTextStyle.defaultFontStyle,
-        // ),
-      ),
-      textButtonTheme: TextButtonThemeData(
-        // style: TextButton.styleFrom(
-        //   textStyle: AppTextStyle.defaultFontStyle,
-        // ),
-      ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(),
-
       // copy from ligthTheme
       inputDecorationTheme: ligthTheme.inputDecorationTheme,
-
-      //if we need to change some of the parameters
-      // textTheme: TextTheme(
-      //   headline1: AppTextStyle.headline1,
-      //   bodyText2: AppTextStyle.appBodyText,
-      // )
     );
   }
 }
