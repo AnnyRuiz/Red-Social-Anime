@@ -5,8 +5,6 @@ import 'package:red_max_anime/domain/controller/persona_controller.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 
-import 'crear_widget.dart';
-
 // Widget encargado de la creacion de una persona
 class VisualizarWidget extends StatefulWidget {
   const VisualizarWidget({Key? key}) : super(key: key);

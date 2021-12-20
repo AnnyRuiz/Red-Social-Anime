@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:red_max_anime/domain/controller/authentication_controller.dart';
-import 'package:red_max_anime/ui/pages/stateful/gps_page.dart';
 import 'package:get/get.dart';
 import 'package:red_max_anime/domain/use_case/controllers/theme_controller.dart';
 import 'package:red_max_anime/ui/widgets/appbar.dart';
@@ -28,7 +27,7 @@ class _ContentPageState extends State<ContentPage> {
   static final List<Widget> _widgets = <Widget>[
     const FireStorePage(),
     const ChatPage(),
-    GpsPage(),
+    const ChatPage(),
     const VisualizarWidget(),
     const CrearWidget(),
   ];
